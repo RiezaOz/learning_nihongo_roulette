@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('nilai_id');
             $table->string('jepang');
+            $table->string('kanji')->nullable();
             $table->string('romaji');
             $table->string('arti');
             $table->string('jawaban')->nullable();
