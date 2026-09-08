@@ -9,7 +9,7 @@ class KotobaSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('kotobas')->truncate();
+ 
 
         $kata = [];
 
