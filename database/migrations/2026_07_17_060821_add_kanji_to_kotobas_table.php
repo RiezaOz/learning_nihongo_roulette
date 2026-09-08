@@ -1,0 +1,22 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::table('kotobas', function (Blueprint $table) {
+            $table->string('kanji')->nullable()->after('jepang');
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('kotobas', function (Blueprint $table) {
+            $table->dropColumn('kanji');
+        });
+    }
+};
