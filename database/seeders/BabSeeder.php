@@ -9,9 +9,9 @@ class BabSeeder extends Seeder
 {
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::statement('SET session_replication_role = replica;');
         DB::table('babs')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        DB::statement('SET session_replication_role = origin;');
 
         $babs = [
             ['nama' => 'Bab 1', 'minggu' => 1, 'total_kata' => 40],

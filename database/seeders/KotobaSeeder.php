@@ -9,9 +9,9 @@ class KotobaSeeder extends Seeder
 {
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::statement('SET session_replication_role = replica;');
         DB::table('kotobas')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        DB::statement('SET session_replication_role = origin;');
 
         $kata = [];
 
