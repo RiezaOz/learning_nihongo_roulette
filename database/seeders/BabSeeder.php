@@ -9,7 +9,6 @@ class BabSeeder extends Seeder
 {
     public function run()
     {
-        // HAPUS truncate, langsung create
         $babs = [
             ['nama' => 'Bab 1', 'minggu' => 1, 'total_kata' => 40],
             ['nama' => 'Bab 2', 'minggu' => 2, 'total_kata' => 76],
