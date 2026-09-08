@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('kotobas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bab_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('bab_id');
             $table->string('jepang');
             $table->string('romaji');
             $table->string('arti');

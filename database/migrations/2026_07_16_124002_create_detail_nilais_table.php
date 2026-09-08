@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('detail_nilais', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('nilai_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('nilai_id');
             $table->string('jepang');
             $table->string('romaji');
             $table->string('arti');
