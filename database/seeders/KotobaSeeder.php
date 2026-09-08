@@ -9,9 +9,7 @@ class KotobaSeeder extends Seeder
 {
     public function run()
     {
-        DB::statement('SET session_replication_role = replica;');
         DB::table('kotobas')->truncate();
-        DB::statement('SET session_replication_role = origin;');
 
         $kata = [];
 

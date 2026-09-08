@@ -3,15 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Bab;
 
 class BabSeeder extends Seeder
 {
     public function run()
     {
-        DB::statement('SET session_replication_role = replica;');
-        DB::table('babs')->truncate();
-        DB::statement('SET session_replication_role = origin;');
+        Bab::truncate();
 
         $babs = [
             ['nama' => 'Bab 1', 'minggu' => 1, 'total_kata' => 40],
@@ -20,7 +18,7 @@ class BabSeeder extends Seeder
         ];
 
         foreach ($babs as $bab) {
-            \App\Models\Bab::create($bab);
+            Bab::create($bab);
         }
     }
 }
