@@ -1,6 +1,9 @@
 {
-  "php": {
-    "version": "8.2",
-    "packages": ["php8.2-mysql"]
+  "$schema": "https://railpack.com/schema.json",
+  "build": {
+    "aptPackages": ["php8.2-mysql", "php8.2-pdo"]
+  },
+  "deploy": {
+    "startCommand": "php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"
   }
 }
