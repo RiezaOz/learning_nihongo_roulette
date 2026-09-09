@@ -1,50 +1,55 @@
-<x-layout title="Latihan - Nihongo Roulette">
+<x-layout title="Latihan">
     <div class="container">
         <div class="card" style="text-align: center;">
-            <p style="color:#b3e5fc; margin-bottom: 0.5rem;">
-                Kata ke-<strong style="color:#ffffff;">{{ $index + 1 }}</strong>
-                @if(in_array($level, ['kanji-mudah','kanji-susah','kanji-romaji']))<span style="color:#80deea;"> • Timer 10s</span>@endif
-                @if($level == 'romaji')<span style="color:#80deea;"> • Tulis di buku</span>@endif
+            <p class="text-muted" style="margin-bottom: 0.5rem;">
+                Kata ke-<span class="text-white">{{ $index + 1 }}</span>
+                @if(in_array($level, ['kanji-mudah','kanji-susah','kanji-romaji']))<span class="text-accent"> • Timer 10s</span>@endif
+                @if($level == 'romaji')<span class="text-accent"> • Tulis di buku</span>@endif
             </p>
 
-            <div style="min-height:150px; display:flex; flex-direction:column; align-items:center; justify-content:center; margin:1.5rem 0;">
+            <div style="min-height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 1.5rem 0;">
                 @if($level == 'jepang-mudah')
-                    <div style="font-size:3.5rem;color:#ffffff;font-weight:700;">{{ $kotoba->jepang }}</div>
-                    <p style="color:#b3e5fc; margin-top:0.5rem;">🇯🇵 Sebutkan artinya!</p>
+                    <div style="font-size: 3.5rem; color: #ffffff; font-weight: 700;">{{ $kotoba->jepang }}</div>
+                    <p class="text-muted" style="margin-top: 0.5rem;">Sebutkan artinya!</p>
                 @elseif($level == 'jepang-susah')
-                    <div style="font-size:3.5rem;color:#ffffff;font-weight:700;">{{ $kotoba->kanji ?: $kotoba->jepang }}</div>
-                    <p style="color:#b3e5fc; margin-top:0.5rem;">🇯🇵🔴 Sebutkan artinya!</p>
+                    <div style="font-size: 3.5rem; color: #ffffff; font-weight: 700;">{{ $kotoba->kanji ?: $kotoba->jepang }}</div>
+                    <p class="text-muted" style="margin-top: 0.5rem;">Sebutkan artinya!</p>
                 @elseif($level == 'indonesia')
-                    <div style="font-size:2rem;color:#ffffff;font-weight:700;">{{ $kotoba->arti }}</div>
-                    <p style="color:#b3e5fc; margin-top:0.5rem;">🇮🇩 Sebutkan Jepangnya!</p>
+                    <div style="font-size: 2rem; color: #ffffff; font-weight: 700;">{{ $kotoba->arti }}</div>
+                    <p class="text-muted" style="margin-top: 0.5rem;">Sebutkan Jepangnya!</p>
                 @elseif($level == 'romaji')
-                    <div style="font-size:2.5rem;color:#ffffff;font-weight:700;">{{ $kotoba->romaji }}</div>
-                    <p style="color:#b3e5fc;">📝 Tulis Jepangnya di buku, lalu klik OKE</p>
+                    <div style="font-size: 2.5rem; color: #ffffff; font-weight: 700;">{{ $kotoba->romaji }}</div>
+                    <p class="text-muted">Tulis Jepangnya di buku, lalu klik OKE</p>
                 @elseif($level == 'kanji-mudah')
-                    @if($kotoba->kanji)<div style="font-size:3.5rem;color:#ffffff;font-weight:700;">{{ $kotoba->kanji }}</div><div style="font-size:1.3rem;color:#b3e5fc;">({{ $kotoba->jepang }})</div>
-                    @else<div style="font-size:3.5rem;color:#ffffff;font-weight:700;">{{ $kotoba->jepang }}</div>@endif
+                    @if($kotoba->kanji)
+                        <div style="font-size: 3.5rem; color: #ffffff; font-weight: 700;">{{ $kotoba->kanji }}</div>
+                        <div style="font-size: 1.3rem; color: #bae6fd;">({{ $kotoba->jepang }})</div>
+                    @else
+                        <div style="font-size: 3.5rem; color: #ffffff; font-weight: 700;">{{ $kotoba->jepang }}</div>
+                    @endif
                 @elseif($level == 'kanji-susah')
-                    <div style="font-size:3.5rem;color:#ffffff;font-weight:700;">{{ $kotoba->kanji ?: $kotoba->jepang }}</div>
+                    <div style="font-size: 3.5rem; color: #ffffff; font-weight: 700;">{{ $kotoba->kanji ?: $kotoba->jepang }}</div>
                 @elseif($level == 'kanji-romaji')
-                    <div style="font-size:3.5rem;color:#ffffff;font-weight:700;">{{ $kotoba->kanji ?: $kotoba->jepang }}</div>
+                    <div style="font-size: 3.5rem; color: #ffffff; font-weight: 700;">{{ $kotoba->kanji ?: $kotoba->jepang }}</div>
                 @endif
             </div>
 
             @if(in_array($level, ['kanji-mudah','kanji-susah']))
-            <input type="text" id="jawaban" placeholder="Ketik arti dalam bahasa Indonesia..." style="width:100%;padding:1rem;border-radius:12px;border:2px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:#ffffff;font-size:1.1rem;text-align:center;font-family:'Poppins',sans-serif;margin-bottom:1rem;" autocomplete="off">
+            <input type="text" id="jawaban" placeholder="Ketik arti dalam bahasa Indonesia..." style="width:100%; padding:1rem; border-radius:12px; border:2px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.1); color:#ffffff; font-size:1.1rem; text-align:center; font-family:'Poppins',sans-serif; margin-bottom:1rem;" autocomplete="off">
             @elseif($level == 'kanji-romaji')
-            <input type="text" id="jawaban" placeholder="Ketik Romaji..." style="width:100%;padding:1rem;border-radius:12px;border:2px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:#ffffff;font-size:1.1rem;text-align:center;font-family:'Poppins',sans-serif;margin-bottom:1rem;" autocomplete="off">
+            <input type="text" id="jawaban" placeholder="Ketik Romaji..." style="width:100%; padding:1rem; border-radius:12px; border:2px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.1); color:#ffffff; font-size:1.1rem; text-align:center; font-family:'Poppins',sans-serif; margin-bottom:1rem;" autocomplete="off">
             @endif
 
             @if($level != 'romaji')
-            <div style="margin:1.5rem 0;">
-                <p style="color:#b3e5fc; font-size:0.9rem;">⏱ Waktu</p>
-                <span id="timer" style="color:#80deea;font-size:2.5rem;font-weight:700;">0.0</span><span style="color:#b3e5fc;"> detik</span>
+            <div style="margin: 1.5rem 0;">
+                <p class="text-muted" style="font-size: 0.9rem;">Waktu</p>
+                <span id="timer" class="text-accent" style="font-size: 2.5rem; font-weight: 700;">0.0</span>
+                <span class="text-muted"> detik</span>
             </div>
             @endif
 
-            <button onclick="jawab()" id="btnOke" style="width:100%;padding:1rem;border-radius:12px;border:none;background:linear-gradient(135deg, #00bcd4, #0097a7);color:#ffffff;font-size:1.2rem;font-weight:700;cursor:pointer;margin-bottom:0.8rem;">✅ OKE</button>
-            <button onclick="menyerah()" style="width:100%;padding:0.8rem;border-radius:12px;border:2px solid rgba(255,255,255,0.3);background:transparent;color:#b3e5fc;font-size:0.9rem;cursor:pointer;">🏳️ Menyerah</button>
+            <button onclick="jawab()" id="btnOke" class="btn-primary" style="width:100%; padding:1rem; border-radius:12px; font-size:1.2rem; font-weight:600; cursor:pointer; margin-bottom:0.8rem;">OKE</button>
+            <button onclick="menyerah()" style="width:100%; padding:0.8rem; border-radius:12px; border:1px solid rgba(255,255,255,0.2); background:transparent; color:#bae6fd; font-size:0.9rem; cursor:pointer;">Menyerah</button>
         </div>
     </div>
 
@@ -55,10 +60,10 @@
         @endif
         
         function jawab(){
-            @if($level!='romaji')clearInterval(timerInterval);var waktu=((Date.now()-startTime)/1000).toFixed(1);@else var waktu=0;@endif
+            @if($level!='romaji')clearInterval(timerInterval); var waktu=((Date.now()-startTime)/1000).toFixed(1); @else var waktu=0; @endif
             var jawaban=document.getElementById('jawaban')?document.getElementById('jawaban').value:'';
             document.getElementById('btnOke').disabled=true;
-            document.getElementById('btnOke').textContent='⏳';
+            document.getElementById('btnOke').textContent='...';
             fetch('{{route('roulette.jawab')}}',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-TOKEN':'{{csrf_token()}}','Accept':'application/json'},body:JSON.stringify({waktu:parseFloat(waktu),jawaban:jawaban})}).then(r=>r.json()).then(d=>{window.location.href='{{route('roulette.koreksi')}}';});
         }
         function menyerah(){
