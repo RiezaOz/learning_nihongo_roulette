@@ -96,7 +96,7 @@
                            onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
                         <input type="radio" name="level" value="kanji-mudah" style="accent-color:#0284c7;">
                         <span style="color:#ffffff; font-size:0.9rem;">Ketik • Kanji Mudah</span>
-                        <span class="tooltip-text">Lihat Kanji + Hiragana, ketik artinya. Benar=A, Salah=0</span>
+                        <span class="tooltip-text">Lihat Kanji + Hiragana, ketik artinya.</span>
                     </label>
 
                     <label class="mode-tooltip" style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
@@ -104,7 +104,7 @@
                            onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
                         <input type="radio" name="level" value="kanji-susah" style="accent-color:#0284c7;">
                         <span style="color:#ffffff; font-size:0.9rem;">Ketik • Kanji Susah</span>
-                        <span class="tooltip-text">Lihat Kanji saja, ketik artinya. Benar=A, Salah=0</span>
+                        <span class="tooltip-text">Lihat Kanji saja, ketik artinya.</span>
                     </label>
 
                     <label class="mode-tooltip" style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
@@ -112,7 +112,7 @@
                            onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
                         <input type="radio" name="level" value="kanji-romaji" style="accent-color:#0284c7;">
                         <span style="color:#ffffff; font-size:0.9rem;">Ketik • Kanji Romaji</span>
-                        <span class="tooltip-text">Lihat Kanji, ketik Romajinya. Benar=A, Salah=0</span>
+                        <span class="tooltip-text">Lihat Kanji, ketik Romajinya.</span>
                     </label>
 
                 </div>
