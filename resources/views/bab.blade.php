@@ -111,7 +111,7 @@
                            onmouseover="this.style.borderColor='#7dd3fc';"
                            onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
                         <input type="radio" name="level" value="kanji-romaji" style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Ketik • Kanji Romaji</span>
+                        <span style="color:#ffffff; font-size:0.9rem;">Ketik • Romaji</span>
                         <span class="tooltip-text">Lihat Kanji, ketik Romajinya.</span>
                     </label>
 
