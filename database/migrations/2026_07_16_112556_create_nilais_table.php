@@ -15,9 +15,9 @@ return new class extends Migration
             $table->integer('poin_a');
             $table->integer('poin_b');
             $table->integer('poin_c');
-            $table->integer('nilai'); // nilai akhir 0-100
-            $table->string('level'); // jepang, indonesia, ketik
-            $table->integer('tab'); // 1, 2, 3
+            $table->integer('nilai');
+            $table->string('level');
+            $table->integer('tab');
             $table->timestamps();
         });
     }

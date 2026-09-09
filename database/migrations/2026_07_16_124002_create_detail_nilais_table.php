@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('romaji');
             $table->string('arti');
             $table->string('jawaban')->nullable();
-            $table->string('poin'); // A, B, C, 0
+            $table->string('poin');
             $table->boolean('benar')->default(true);
             $table->float('waktu')->default(0);
             $table->integer('urutan');

@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Bab extends Model
 {
     protected $fillable = ['nama', 'minggu', 'total_kata'];
+
+    public function kotobas()
+    {
+        return $this->hasMany(Kotoba::class);
+    }
 }
