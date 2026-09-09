@@ -63,7 +63,7 @@
                            onmouseover="this.style.borderColor='#7dd3fc';"
                            onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
                         <input type="radio" name="level" value="jepang-mudah" checked style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Lisan • Jepang Mudah</span>
+                        <span style="color:#ffffff; font-size:0.9rem;">Lisan • Hiragana</span>
                         <span class="tooltip-text">Lihat Hiragana, sebutkan artinya dengan lisan</span>
                     </label>
 
@@ -71,7 +71,7 @@
                            onmouseover="this.style.borderColor='#7dd3fc';"
                            onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
                         <input type="radio" name="level" value="jepang-susah" style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Lisan • Jepang Susah</span>
+                        <span style="color:#ffffff; font-size:0.9rem;">Lisan • Kanji</span>
                         <span class="tooltip-text">Lihat Kanji saja, sebutkan artinya dengan lisan</span>
                     </label>
 
@@ -95,7 +95,7 @@
                            onmouseover="this.style.borderColor='#7dd3fc';"
                            onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
                         <input type="radio" name="level" value="kanji-mudah" style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Ketik • Kanji Mudah</span>
+                        <span style="color:#ffffff; font-size:0.9rem;">Ketik • Hiragana</span>
                         <span class="tooltip-text">Lihat Kanji + Hiragana, ketik artinya.</span>
                     </label>
 
@@ -103,7 +103,7 @@
                            onmouseover="this.style.borderColor='#7dd3fc';"
                            onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
                         <input type="radio" name="level" value="kanji-susah" style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Ketik • Kanji Susah</span>
+                        <span style="color:#ffffff; font-size:0.9rem;">Ketik • Kanji</span>
                         <span class="tooltip-text">Lihat Kanji saja, ketik artinya.</span>
                     </label>
 
