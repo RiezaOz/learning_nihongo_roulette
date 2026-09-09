@@ -1,7 +1,7 @@
 <x-layout title="Nihongo Roulette - Home">
     <div class="container">
         <div style="text-align: center; margin-bottom: 2rem;">
-            <h1 style="font-size: 2.5rem; color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">🌊 Nihongo Roulette</h1>
+            <h1 style="font-size: 2.5rem; color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">Nihongo Roulette</h1>
             <p style="color: #e0f7fa;">Belajar kosakata bahasa Jepang dengan santai</p>
         </div>
 
