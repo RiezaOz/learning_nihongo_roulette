@@ -55,52 +55,52 @@
                     @endif
                 </select>
 
-                <!-- Pilih Mode (MENYAMPING) -->
-                <label style="display:block; color:#bae6fd; margin-bottom:0.5rem;">Pilih Mode Latihan</label>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-bottom: 2rem;">
-                    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
-                           onmouseover="this.style.borderColor='#7dd3fc';"
-                           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
-                        <input type="radio" name="level" value="jepang-mudah" checked style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Jepang Mudah</span>
-                    </label>
-                    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
-                           onmouseover="this.style.borderColor='#7dd3fc';"
-                           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
-                        <input type="radio" name="level" value="jepang-susah" style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Jepang Susah</span>
-                    </label>
-                    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
-                           onmouseover="this.style.borderColor='#7dd3fc';"
-                           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
-                        <input type="radio" name="level" value="indonesia" style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Indonesia</span>
-                    </label>
-                    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
-                           onmouseover="this.style.borderColor='#7dd3fc';"
-                           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
-                        <input type="radio" name="level" value="romaji" style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Romaji</span>
-                    </label>
-                    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
-                           onmouseover="this.style.borderColor='#7dd3fc';"
-                           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
-                        <input type="radio" name="level" value="kanji-mudah" style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Kanji Mudah</span>
-                    </label>
-                    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
-                           onmouseover="this.style.borderColor='#7dd3fc';"
-                           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
-                        <input type="radio" name="level" value="kanji-susah" style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Kanji Susah</span>
-                    </label>
-                    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
-                           onmouseover="this.style.borderColor='#7dd3fc';"
-                           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
-                        <input type="radio" name="level" value="kanji-romaji" style="accent-color:#0284c7;">
-                        <span style="color:#ffffff; font-size:0.9rem;">Kanji Romaji</span>
-                    </label>
-                </div>
+                <!-- Pilih Mode (MENYAMPING + LABEL LISAN/KETIK) -->
+<label style="display:block; color:#bae6fd; margin-bottom:0.5rem;">Pilih Mode Latihan</label>
+<div style="display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-bottom: 2rem;">
+    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
+           onmouseover="this.style.borderColor='#7dd3fc';"
+           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
+        <input type="radio" name="level" value="jepang-mudah" checked style="accent-color:#0284c7;">
+        <span style="color:#ffffff; font-size:0.9rem;">Lisan • Jepang Mudah</span>
+    </label>
+    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
+           onmouseover="this.style.borderColor='#7dd3fc';"
+           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
+        <input type="radio" name="level" value="jepang-susah" style="accent-color:#0284c7;">
+        <span style="color:#ffffff; font-size:0.9rem;">Lisan • Jepang Susah</span>
+    </label>
+    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
+           onmouseover="this.style.borderColor='#7dd3fc';"
+           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
+        <input type="radio" name="level" value="indonesia" style="accent-color:#0284c7;">
+        <span style="color:#ffffff; font-size:0.9rem;">Lisan • Indonesia</span>
+    </label>
+    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
+           onmouseover="this.style.borderColor='#7dd3fc';"
+           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
+        <input type="radio" name="level" value="romaji" style="accent-color:#0284c7;">
+        <span style="color:#ffffff; font-size:0.9rem;">Tulis • Romaji</span>
+    </label>
+    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
+           onmouseover="this.style.borderColor='#7dd3fc';"
+           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
+        <input type="radio" name="level" value="kanji-mudah" style="accent-color:#0284c7;">
+        <span style="color:#ffffff; font-size:0.9rem;">Ketik • Kanji Mudah</span>
+    </label>
+    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
+           onmouseover="this.style.borderColor='#7dd3fc';"
+           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
+        <input type="radio" name="level" value="kanji-susah" style="accent-color:#0284c7;">
+        <span style="color:#ffffff; font-size:0.9rem;">Ketik • Kanji Susah</span>
+    </label>
+    <label style="padding:0.6rem 1rem; border-radius:15px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:all 0.3s;"
+           onmouseover="this.style.borderColor='#7dd3fc';"
+           onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
+        <input type="radio" name="level" value="kanji-romaji" style="accent-color:#0284c7;">
+        <span style="color:#ffffff; font-size:0.9rem;">Ketik • Kanji Romaji</span>
+    </label>
+</div>
 
                 <button type="submit" class="btn-primary" style="width:100%; padding:1rem; border-radius:12px; font-size:1.2rem; font-weight:600; cursor:pointer;">Mulai</button>
             </form>
