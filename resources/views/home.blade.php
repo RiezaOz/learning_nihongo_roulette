@@ -15,7 +15,7 @@
                         <h2 style="color: #ffffff; font-size: 1.4rem; margin-bottom: 0.3rem;">📚 {{ $bab->nama }}</h2>
                         <p style="color: #b3e5fc;">{{ $bab->total_kata }} kosakata</p>
                     </div>
-                    <div style="font-size: 2rem; color: #80deea;">🌊</div>
+                    <div style="font-size: 2rem; color: #80deea;"></div>
                 </div>
             </a>
             @endforeach
