@@ -78,7 +78,14 @@ class RouletteController extends Controller
         $kotobas = session('kotobas'); $index = session('index', 0);
         $hasil = session('hasil', []); $waktu = session('last_waktu', 0);
         $poin = session('last_poin', 'C'); $jawaban = session('last_jawaban', '');
-        $level = session('level', 'jepang-mudah'); $kotoba = $kotobas[$index];
+        $level = session('level', 'jepang-mudah');
+
+        $kotoba = $kotobas[$index] ?? null;
+
+        if (!$kotoba) {
+            return redirect()->route('roulette.hasil');
+        }
+          
         $isKetik = in_array($level, ['kanji-mudah','kanji-susah','kanji-romaji']);
         $benar = !($isKetik && $poin == '0');
         $hasil[] = ['kata'=>$kotoba,'waktu'=>$waktu,'poin'=>$poin,'jawaban'=>$jawaban,'benar'=>$benar];
