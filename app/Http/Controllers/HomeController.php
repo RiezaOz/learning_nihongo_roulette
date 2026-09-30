@@ -17,12 +17,15 @@ class HomeController extends Controller
     {
         $bab = Bab::findOrFail($id);
         
-        // Rekap: ambil semua kata dari bab 1 sampai bab ini, random max 50
+        // Daftar kata: TAMPILKAN SEMUA kata dari bab ini
+        // (untuk daftar kata di halaman bab)
+        
+        // Rekap: ambil semua kata dari bab 1 sampai bab ini (untuk tampilan daftar)
         $rekapKata = [];
         if ($bab->minggu > 1) {
             $rekapKata = Kotoba::whereIn('bab_id', range(1, $bab->id))
-                ->inRandomOrder()
-                ->limit(50)
+                ->orderBy('bab_id')
+                ->orderBy('urutan')
                 ->get()
                 ->map(function($k) {
                     return [
