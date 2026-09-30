@@ -18,6 +18,7 @@ class BabSeeder extends Seeder
             ['nama' => 'Bab 1', 'minggu' => 1, 'total_kata' => 40],
             ['nama' => 'Bab 2', 'minggu' => 2, 'total_kata' => 76],
             ['nama' => 'Bab 3', 'minggu' => 3, 'total_kata' => 49],
+            ['nama' => 'Bab 4', 'minggu' => 4, 'total_kata' => 58],
         ];
 
         foreach ($babs as $bab) {
