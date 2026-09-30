@@ -76,8 +76,12 @@ class RouletteController extends Controller
 
         $kotoba = $kotobas[$index];
         $level = session('level', 'jepang-mudah');
+        $tab = session('tab', 1);
+        $bab_id = session('bab_id', 1);
+        $bab = Bab::find($bab_id);
+        $totalKata = count($kotobas);
 
-        return view('roulette', compact('kotoba', 'level', 'index'));
+        return view('roulette', compact('kotoba', 'level', 'index', 'tab', 'bab', 'totalKata'));
     }
 
     public function jawab(Request $request)
@@ -93,8 +97,8 @@ class RouletteController extends Controller
             return trim(preg_replace('/[～〜・※▲▼★☆♪♯＠＃＄％＆＊＋－／：；＜＝＞？＠＾＿｀｛｜｝￠￡￢￣￤￥「」『』【】]/u', '', $teks));
         };
 
-        if ($level == 'romaji') { 
-            $poin = '-'; 
+        if ($level == 'romaji') {
+            $poin = '-';
         }
         elseif (in_array($level, ['kanji-mudah','kanji-susah']) && $kotoba) {
             $benar = $this->cekArtiPintar($jawaban, $kotoba->arti);
@@ -130,29 +134,32 @@ class RouletteController extends Controller
         return response()->json(['status'=>'ok']);
     }
 
-    /**
-     * Cek jawaban pintar: handle tanda kurung, slash, dan alternatif
-     */
     private function cekArtiPintar($jawaban, $arti)
     {
-        $jawabanBersih = strtolower(trim($jawaban));
-        $kunci = strtolower(trim($arti));
+        // Normalisasi: hapus semua non-alfanumerik
+        $normalisasi = function($teks) {
+            $teks = strtolower(trim($teks));
+            return preg_replace('/[^a-z0-9]/', '', $teks);
+        };
 
-        // Pisah kunci berdasarkan slash (/) dan koma
-        $kunciUtama = preg_replace('/\(.*?\)/', '', $kunci); // hapus dalam kurung
-        $kunciUtama = trim($kunciUtama);
-        
-        // Pecah jadi beberapa kandidat
+        $jawabanNormal = $normalisasi($jawaban);
+        $kunciNormal = $normalisasi($arti);
+
+        // Cek langsung dulu
+        if ($jawabanNormal === $kunciNormal) return true;
+
+        // Pisah kunci berdasarkan slash, kurung, spasi
+        $kunci = strtolower(trim($arti));
+        $kunciUtama = trim(preg_replace('/\(.*?\)/', '', $kunci));
+
         $kandidat = [];
         $kandidat[] = $kunci;
         $kandidat[] = $kunciUtama;
-        
-        // Pecah by slash
+
         foreach (explode('/', $kunciUtama) as $k) {
             $kandidat[] = trim($k);
         }
-        
-        // Ambil isi dalam kurung juga
+
         preg_match_all('/\((.*?)\)/', $kunci, $matches);
         if (!empty($matches[1])) {
             foreach ($matches[1] as $m) {
@@ -160,12 +167,10 @@ class RouletteController extends Controller
             }
         }
 
-        // Pecah by spasi (tiap kata jadi kandidat)
         foreach (explode(' ', $kunciUtama) as $k) {
             $kandidat[] = trim($k);
         }
 
-        // Alternatif manual
         $alternatifManual = [
             'sai' => ['tahun', 'umur', 'usia'],
             'nansai' => ['berapa umur', 'berapa usia'],
@@ -184,20 +189,20 @@ class RouletteController extends Controller
             'tokei' => ['jam', 'arloji'],
         ];
 
-        // Tambah alternatif manual (cek berdasarkan arti asli)
         foreach ($alternatifManual as $key => $list) {
-            if (str_contains($kunci, $key) || str_contains($kunci, strtolower($key))) {
+            if (str_contains($kunci, $key)) {
                 $kandidat = array_merge($kandidat, $list);
             }
         }
 
-        // Cek apakah jawaban cocok dengan salah satu kandidat
         $kandidat = array_unique(array_filter($kandidat));
         foreach ($kandidat as $k) {
             if (empty($k)) continue;
-            if ($k === $jawabanBersih) return true;
-            if (str_contains($k, $jawabanBersih)) return true;
-            if (str_contains($jawabanBersih, $k)) return true;
+            $kNormal = $normalisasi($k);
+            if (empty($kNormal)) continue;
+            if ($kNormal === $jawabanNormal) return true;
+            if (str_contains($kNormal, $jawabanNormal)) return true;
+            if (str_contains($jawabanNormal, $kNormal)) return true;
         }
 
         return false;
