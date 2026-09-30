@@ -16,11 +16,7 @@ class HomeController extends Controller
     public function show($id)
     {
         $bab = Bab::findOrFail($id);
-        
-        // Daftar kata: TAMPILKAN SEMUA kata dari bab ini
-        // (untuk daftar kata di halaman bab)
-        
-        // Rekap: ambil semua kata dari bab 1 sampai bab ini (untuk tampilan daftar)
+
         $rekapKata = [];
         if ($bab->minggu > 1) {
             $rekapKata = Kotoba::whereIn('bab_id', range(1, $bab->id))
@@ -39,7 +35,7 @@ class HomeController extends Controller
                     ];
                 });
         }
-        
+
         return view('bab', compact('bab', 'rekapKata'));
     }
 }
