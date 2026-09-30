@@ -17,17 +17,14 @@ class RouletteController extends Controller
         $tab = $request->tab;
         $bab = Bab::findOrFail($bab_id);
 
-        // Hapus session lama
         session()->forget('kotobas');
         session()->forget('index');
         session()->forget('hasil');
         session()->forget('koreksi_kata');
 
         if ($tab == 1) {
-            // Tab 1: hanya kata dari bab ini, langsung acak
             $kotobas = Kotoba::where('bab_id', $bab_id)->get()->shuffle()->values();
         } else {
-            // Tab 2 (Rekap): 25% per bab, maks 50 kata total
             $totalBab = $bab->id;
             $perBab = (int) floor(50 / $totalBab);
 
@@ -96,28 +93,11 @@ class RouletteController extends Controller
             return trim(preg_replace('/[～〜・※▲▼★☆♪♯＠＃＄％＆＊＋－／：；＜＝＞？＠＾＿｀｛｜｝￠￡￢￣￤￥「」『』【】]/u', '', $teks));
         };
 
-        if ($level == 'romaji') { $poin = '-'; }
+        if ($level == 'romaji') { 
+            $poin = '-'; 
+        }
         elseif (in_array($level, ['kanji-mudah','kanji-susah']) && $kotoba) {
-            $jawabanBersih = strtolower(trim($jawaban));
-            $kunci = strtolower(trim($kotoba->arti));
-            $kunciSederhana = trim(preg_replace('/\(.*?\)/', '', $kunci));
-            $alternatif = [
-                'daigaku'=>['universitas','kampus','univ'],
-                'byouin'=>['rumah sakit','rs'],
-                'sensei'=>['guru','dokter'],
-                'gakusei'=>['murid','pelajar','siswa','mahasiswa']
-            ];
-            $semuaJawaban = [$kunciSederhana];
-            if (isset($alternatif[$kotoba->romaji])) {
-                $semuaJawaban = array_merge($semuaJawaban, $alternatif[$kotoba->romaji]);
-            }
-            $benar = false;
-            foreach ($semuaJawaban as $jwb) {
-                if (str_contains($jwb, $jawabanBersih) || str_contains($jawabanBersih, $jwb)) {
-                    $benar = true;
-                    break;
-                }
-            }
+            $benar = $this->cekArtiPintar($jawaban, $kotoba->arti);
             if (!$benar) { $poin = '0'; }
             elseif ($waktu <= 10) { $poin = 'A'; }
             elseif ($waktu <= 15) { $poin = 'B'; }
@@ -150,6 +130,79 @@ class RouletteController extends Controller
         return response()->json(['status'=>'ok']);
     }
 
+    /**
+     * Cek jawaban pintar: handle tanda kurung, slash, dan alternatif
+     */
+    private function cekArtiPintar($jawaban, $arti)
+    {
+        $jawabanBersih = strtolower(trim($jawaban));
+        $kunci = strtolower(trim($arti));
+
+        // Pisah kunci berdasarkan slash (/) dan koma
+        $kunciUtama = preg_replace('/\(.*?\)/', '', $kunci); // hapus dalam kurung
+        $kunciUtama = trim($kunciUtama);
+        
+        // Pecah jadi beberapa kandidat
+        $kandidat = [];
+        $kandidat[] = $kunci;
+        $kandidat[] = $kunciUtama;
+        
+        // Pecah by slash
+        foreach (explode('/', $kunciUtama) as $k) {
+            $kandidat[] = trim($k);
+        }
+        
+        // Ambil isi dalam kurung juga
+        preg_match_all('/\((.*?)\)/', $kunci, $matches);
+        if (!empty($matches[1])) {
+            foreach ($matches[1] as $m) {
+                $kandidat[] = trim($m);
+            }
+        }
+
+        // Pecah by spasi (tiap kata jadi kandidat)
+        foreach (explode(' ', $kunciUtama) as $k) {
+            $kandidat[] = trim($k);
+        }
+
+        // Alternatif manual
+        $alternatifManual = [
+            'sai' => ['tahun', 'umur', 'usia'],
+            'nansai' => ['berapa umur', 'berapa usia'],
+            'oikutsu' => ['berapa umur', 'berapa usia'],
+            'daigaku' => ['universitas', 'kampus', 'univ'],
+            'byouin' => ['rumah sakit', 'rs'],
+            'sensei' => ['guru', 'dokter', 'pengajar'],
+            'gakusei' => ['murid', 'pelajar', 'siswa', 'mahasiswa'],
+            'kaishain' => ['karyawan', 'pegawai', 'pekerja'],
+            'ginkouin' => ['pegawai bank', 'bankir'],
+            'isha' => ['dokter'],
+            'kenkyuusha' => ['peneliti', 'ilmuwan'],
+            'kyoushi' => ['guru', 'pengajar'],
+            'jidousha' => ['mobil', 'kendaraan'],
+            'kuruma' => ['mobil', 'kendaraan'],
+            'tokei' => ['jam', 'arloji'],
+        ];
+
+        // Tambah alternatif manual (cek berdasarkan arti asli)
+        foreach ($alternatifManual as $key => $list) {
+            if (str_contains($kunci, $key) || str_contains($kunci, strtolower($key))) {
+                $kandidat = array_merge($kandidat, $list);
+            }
+        }
+
+        // Cek apakah jawaban cocok dengan salah satu kandidat
+        $kandidat = array_unique(array_filter($kandidat));
+        foreach ($kandidat as $k) {
+            if (empty($k)) continue;
+            if ($k === $jawabanBersih) return true;
+            if (str_contains($k, $jawabanBersih)) return true;
+            if (str_contains($jawabanBersih, $k)) return true;
+        }
+
+        return false;
+    }
+
     public function koreksi()
     {
         $kotobas = session('kotobas');
@@ -160,7 +213,6 @@ class RouletteController extends Controller
         $jawaban = session('last_jawaban', '');
         $level = session('level', 'jepang-mudah');
 
-        // Ambil kata dari session 'koreksi_kata' (untuk jawab & menyerah)
         $kotoba = session('koreksi_kata') ?? ($kotobas[$index] ?? null);
         session()->forget('koreksi_kata');
 
