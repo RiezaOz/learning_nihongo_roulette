@@ -21,10 +21,10 @@ Aplikasi latihan kosakata bahasa Jepang (Minna no Nihongo) dengan sistem roulett
 
 ## 🛠️ Teknologi
 
-- **PHP** ^8.1
-- **Laravel** ^10.10
+- **PHP** 8.1
+- **Laravel** 10.10
 - **PostgreSQL** 13+
-- **Composer** ^2.x
+- **Composer** 2.x
 - **JavaScript** (vanilla)
 
 ## 📦 Instalasi
