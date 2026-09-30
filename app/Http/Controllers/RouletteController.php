@@ -17,11 +17,16 @@ class RouletteController extends Controller
         $tab = $request->tab;
         $bab = Bab::findOrFail($bab_id);
 
+        // Hapus session lama biar tidak bentrok
+        session()->forget('kotobas');
+        session()->forget('index');
+        session()->forget('hasil');
+
         if ($tab == 1) {
-            // Tab 1: hanya kata dari bab ini
-            $kotobas = Kotoba::where('bab_id', $bab_id)->orderBy('urutan')->get();
+            // Tab 1: hanya kata dari bab ini, langsung acak
+            $kotobas = Kotoba::where('bab_id', $bab_id)->get()->shuffle()->values();
         } else {
-            // Tab 2 (Rekap): ambil 25% per bab, maks 50 kata total
+            // Tab 2 (Rekap): 25% per bab, maks 50 kata total
             $totalBab = $bab->id;
             $perBab = (int) floor(50 / $totalBab);
 
@@ -46,7 +51,7 @@ class RouletteController extends Controller
                 $kotobas = $kotobas->merge($tambahan);
             }
 
-            // Acak total
+            // Acak total biar bener-bener random
             $kotobas = $kotobas->shuffle()->values();
         }
 
