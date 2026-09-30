@@ -60,16 +60,38 @@
         @endif
         
         function jawab(){
-            @if($level!='romaji')clearInterval(timerInterval); var waktu=((Date.now()-startTime)/1000).toFixed(1); @else var waktu=0; @endif
+            @if($level!='romaji')
+            clearInterval(timerInterval);
+            var waktu=((Date.now()-startTime)/1000).toFixed(1);
+            @else
+            var waktu=0;
+            @endif
             var jawaban=document.getElementById('jawaban')?document.getElementById('jawaban').value:'';
             document.getElementById('btnOke').disabled=true;
             document.getElementById('btnOke').textContent='...';
-            fetch('{{route('roulette.jawab')}}',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-TOKEN':'{{csrf_token()}}','Accept':'application/json'},body:JSON.stringify({waktu:parseFloat(waktu),jawaban:jawaban})}).then(r=>r.json()).then(d=>{window.location.href='{{route('roulette.koreksi')}}';});
+            fetch('{{route('roulette.jawab')}}',{
+                method:'POST',
+                headers:{'Content-Type':'application/json','X-CSRF-TOKEN':'{{csrf_token()}}','Accept':'application/json'},
+                body:JSON.stringify({waktu:parseFloat(waktu),jawaban:jawaban})
+            }).then(r=>r.json()).then(d=>{window.location.href='{{route('roulette.koreksi')}}';});
         }
+        
         function menyerah(){
-            if(confirm('Menyerah?')){try { @if($level!='romaji')clearInterval(timerInterval);@endif } catch(e) {} window.location.href='{{route('roulette.menyerah')}}?kata_id={{$kotoba->id}}';}
+            if(confirm('Menyerah untuk kata ini? Poin akan 0.')){
+                try { @if($level!='romaji')clearInterval(timerInterval);@endif } catch(e) {}
+                window.location.href='{{route('roulette.menyerah')}}?kata_id={{$kotoba->id}}';
+            }
         }
-        document.addEventListener('keydown',function(e){if(e.key==='Enter'&&document.getElementById('jawaban')){e.preventDefault();jawab();}});
-        @if(in_array($level,['kanji-mudah','kanji-susah','kanji-romaji']))document.getElementById('jawaban').focus();@endif
+        
+        document.addEventListener('keydown',function(e){
+            if(e.key==='Enter'&&document.getElementById('jawaban')){
+                e.preventDefault();
+                jawab();
+            }
+        });
+        
+        @if(in_array($level,['kanji-mudah','kanji-susah','kanji-romaji']))
+        document.getElementById('jawaban').focus();
+        @endif
     </script>
 </x-layout>

@@ -17,10 +17,11 @@ class RouletteController extends Controller
         $tab = $request->tab;
         $bab = Bab::findOrFail($bab_id);
 
-        // Hapus session lama biar tidak bentrok
+        // Hapus session lama
         session()->forget('kotobas');
         session()->forget('index');
         session()->forget('hasil');
+        session()->forget('koreksi_kata');
 
         if ($tab == 1) {
             // Tab 1: hanya kata dari bab ini, langsung acak
@@ -39,7 +40,6 @@ class RouletteController extends Controller
                 $kotobas = $kotobas->merge($kataBab);
             }
 
-            // Kalau total masih kurang dari 50, tambah dari semua bab secara acak
             if ($kotobas->count() < 50) {
                 $kurang = 50 - $kotobas->count();
                 $idSudahAda = $kotobas->pluck('id')->toArray();
@@ -51,7 +51,6 @@ class RouletteController extends Controller
                 $kotobas = $kotobas->merge($tambahan);
             }
 
-            // Acak total biar bener-bener random
             $kotobas = $kotobas->shuffle()->values();
         }
 
@@ -142,7 +141,12 @@ class RouletteController extends Controller
             else { $poin = 'C'; }
         }
 
-        session(['last_waktu'=>$waktu, 'last_poin'=>$poin, 'last_jawaban'=>$jawaban]);
+        session([
+            'last_waktu'=>$waktu,
+            'last_poin'=>$poin,
+            'last_jawaban'=>$jawaban,
+            'koreksi_kata'=>$kotoba
+        ]);
         return response()->json(['status'=>'ok']);
     }
 
@@ -156,7 +160,10 @@ class RouletteController extends Controller
         $jawaban = session('last_jawaban', '');
         $level = session('level', 'jepang-mudah');
 
-        $kotoba = $kotobas[$index] ?? null;
+        // Ambil kata dari session 'koreksi_kata' (untuk jawab & menyerah)
+        $kotoba = session('koreksi_kata') ?? ($kotobas[$index] ?? null);
+        session()->forget('koreksi_kata');
+
         if (!$kotoba) {
             return redirect()->route('roulette.hasil');
         }
@@ -194,7 +201,16 @@ class RouletteController extends Controller
         $poin = ($level == 'romaji') ? '-' : '0';
 
         $hasil[] = ['kata'=>$kotoba, 'waktu'=>0, 'poin'=>$poin, 'jawaban'=>'', 'benar'=>false];
-        session(['hasil'=>$hasil, 'index'=>$indexKetemu + 1]);
+
+        session([
+            'hasil'=>$hasil,
+            'index'=>$indexKetemu + 1,
+            'koreksi_kata'=>$kotoba,
+            'last_waktu'=>0,
+            'last_poin'=>$poin,
+            'last_jawaban'=>''
+        ]);
+
         return redirect()->route('roulette.koreksi');
     }
 
